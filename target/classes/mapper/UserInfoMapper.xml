@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+       Copyright 2015-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.zlt.gllys.mapper.UserInfoMapper">
+
+    <resultMap id="UserInfoMap" type="UserInfo">
+        <id column="id" property="id"/>
+        <result column="user_name" property="username"/>
+        <result column="user_pwd" property="userpwd"/>
+        <result column="auth" property="auth"/>
+    </resultMap>
+    <select id="selectByUserName" resultType="com.zlt.gllys.model.UserInfo">
+        SELECT *
+        FROM User_Auth
+        WHERE user_name = #{userName}
+    </select>
+
+
+    <insert id="postValue" parameterType="UserInfo">
+        INSERT INTO `User_Auth`
+        (
+         user_name,
+         user_pwd,
+         auth,
+         login_time)
+        VALUES
+            (#{username}, #{userpwd}, #{auth},NOW());
+    </insert>
+</mapper>
+
+
