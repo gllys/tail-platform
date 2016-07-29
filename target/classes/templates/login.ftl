@@ -17,6 +17,31 @@
     <script src="/resources/js/html5shiv.js"></script>
     <script src="/resources/js/respond.min.js"></script>
     <![endif]-->
+    <script>
+
+        function isUserNameAble() {
+            var url = "/api";
+            var name = $("#UsrNameAble").val();
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({"username": name}),
+                success: function (Result) {
+                    alert(Result)
+                },
+                error: function (Result) {
+                    alert("server code : 500")
+                }
+
+
+            })
+        }
+
+    </script>
+
+
 </head>
 
 <body class="login-body">
@@ -29,9 +54,10 @@
             <img src="/resources/images/login-logo.png" alt=""/>
         </div>
         <div class="login-wrap">
-            <input type="text" class="form-control" name = "username" placeholder="Username" autofocus>
+            <input type="text" class="form-control" name="username" placeholder="Username" autofocus id="UsrNameAble"
+                   onblur="isUserNameAble()">
 
-            <input type="password" class="form-control" name = "password" placeholder="Password">
+            <input type="password" class="form-control" name="password" placeholder="Password">
 
             <button class="btn btn-lg btn-login btn-block" type="submit">
                 <i class="fa fa-check"></i>
@@ -54,7 +80,8 @@
         </div>
 
         <!-- Modal -->
-        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+             class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -63,7 +90,8 @@
                     </div>
                     <div class="modal-body">
                         <p>Enter your e-mail address below to reset your password.</p>
-                        <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                        <input type="text" name="email" placeholder="Email" autocomplete="off"
+                               class="form-control placeholder-no-fix">
 
                     </div>
                     <div class="modal-footer">
@@ -78,7 +106,6 @@
     </form>
 
 </div>
-
 
 
 <!-- Placed js at the end of the document so the pages load faster -->

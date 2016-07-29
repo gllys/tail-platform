@@ -22,25 +22,44 @@ public class WebSecurityConf extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-         //auth.inMemoryAuthentication().withUser("admin").password("admin").roles("USER");
+        //auth.inMemoryAuthentication().withUser("admin").password("admin").roles("USER");
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(new BCryptPasswordEncoder());
 
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**","/api/**","/tail/**").permitAll()
-                .anyRequest().authenticated()
+                //不验证拦截的匹配目录
+                .antMatchers("/resources/**", "/api/**", "/tail/registration")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/tail/login").permitAll()
+                //登陆的页面,锁死
+                .loginPage("/tail/login")
+                .permitAll()
+                //默认的验证成功的地址
                 .defaultSuccessUrl("/tail/index")
                 .and()
+                //登出操作
                 .logout()
-                .permitAll().and().csrf().disable();
+                .logoutUrl("/tail/logout")
+                .permitAll()
+                .invalidateHttpSession(true)
+                .and()
+                // 登录后记住用户，下次自动登录
+                // 数据库中必须存在名为persistent_logins的表
+                // 建表语句见code15
+                .rememberMe()
+                .tokenValiditySeconds(1209600)
+                .and()
+                //csrf验证关闭
+                .csrf().disable();
     }
 
 
@@ -79,8 +98,6 @@ public class WebSecurityConf extends WebSecurityConfigurerAdapter {
             .disable()
         ;
     */
-
-
 
 
 }

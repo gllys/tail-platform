@@ -28,8 +28,10 @@
         <result column="user_name" property="username"/>
         <result column="user_pwd" property="userpwd"/>
         <result column="auth" property="auth"/>
+        <result column="login_time" property="logintime"/>
     </resultMap>
-    <select id="selectByUserName" resultType="com.zlt.gllys.model.UserInfo">
+
+    <select id="selectByUserName" resultMap="UserInfoMap">
         SELECT *
         FROM User_Auth
         WHERE user_name = #{userName}

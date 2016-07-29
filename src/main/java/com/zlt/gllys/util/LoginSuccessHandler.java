@@ -22,8 +22,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
 
-        //TODO Harish
-        LOGGER.info("LoginSuccessHandler <- onAuthenticationSuccess() -> for user: TODO Harish");
+
+        LOGGER.info("LoginSuccessHandler <- onAuthenticationSuccess() -> for user");
         setDefaultTargetUrl("/static/user.html");
         super.onAuthenticationSuccess(request, response, authentication);
     }

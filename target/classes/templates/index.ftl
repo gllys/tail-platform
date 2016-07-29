@@ -44,11 +44,11 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.ftl"><img src="/resources/images/logo.png" alt=""></a>
+            <a href="/tail/index"><img src="/resources/images/logo.png" alt=""></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="index.ftl"><img src="/resources/images/logo_icon.png" alt=""></a>
+            <a href="/tail/index"><img src="/resources/images/logo_icon.png" alt=""></a>
         </div>
         <!--logo and iconic logo end-->
 
@@ -59,7 +59,7 @@
                 <div class="media logged-user">
                     <img alt="" src="/resources/images/photos/user-avatar.png" class="media-object">
                     <div class="media-body">
-                        <h4><a href="#">John Doe</a></h4>
+                        <h4><a href="#">Gllys</a></h4>
                         <span>"Hello There..."</span>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="active"><a href="index.ftl"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="/tail/index"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
                 <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>Layouts</span></a>
                     <ul class="sub-menu-list">
                         <li><a href="/resources/blank_page.html"> Blank Page</a></li>
@@ -187,7 +187,7 @@
             <!--toggle button end-->
 
             <!--search start-->
-            <form class="searchform" action="index.ftl" method="post">
+            <form class="searchform" action="/tail/index" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
             </form>
             <!--search end-->
@@ -373,7 +373,7 @@
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                             <li><a href="#"><i class="fa fa-user"></i>  Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i>  Settings</a></li>
-                            <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                            <li><a href="/tail/logout"><i class="fa fa-sign-out"></i> Log Out</a></li>
                         </ul>
                     </li>
 
@@ -589,7 +589,7 @@
                                 </li>
                                 <li>
                                     <div class="prog-avatar">
-                                        <img src="images/photos/user2.png" alt=""/>
+                                        <img src="/resources/images/photos/user2.png" alt=""/>
                                     </div>
                                     <div class="details">
                                         <div class="title">

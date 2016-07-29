@@ -34,18 +34,26 @@ public class DefaultApiController extends BaseController {
     @Autowired
     private UserInfoServiceImpl userInfoService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> tryFirst(HttpServletRequest request,
-                                        Model model) {
+                                        Model model,@RequestBody Object params) throws Exception{
+        String username = "username";
         Map<String, Object> map = new HashMap<>();
-
-        UserInfo userInfo = new UserInfo();
-        userInfo = userInfoService.selectByUserName("gllys");
-
-
+        JSONObject jsonObject = JSONObject.fromObject(params);
+        if(jsonObject.isEmpty()||jsonObject.getString(username)==null){
+            map.put("code",503);
+            map.put("message","却少参数:username");
+            return map;
+        }
+        UserInfo userInfo = userInfoService.selectByUserName(jsonObject.getString(username));
+        if(userInfo==null){
+            map.put("code",503);
+            map.put("result",userInfo);
+            return map;
+        }
         map.put("result", userInfo);
-        map.put("code", 200);
+        logger.info(userInfo);
         return map;
     }
 
