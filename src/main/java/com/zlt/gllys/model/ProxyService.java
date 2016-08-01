@@ -1,5 +1,7 @@
 package com.zlt.gllys.model;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 /**
  * Created by zhangletian on 16/8/1.
  */
+@Component
 public class ProxyService{
 
     private List<String> header = new ArrayList<String>();
