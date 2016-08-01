@@ -29,10 +29,10 @@
                 dataType: "json",
                 data: JSON.stringify({"username": name}),
                 success: function (Result) {
-                    alert(Result)
+                    alert(Result.result.username);
                 },
                 error: function (Result) {
-                    alert("server code : 500")
+                    alert("server code : 500");
                 }
 
 
