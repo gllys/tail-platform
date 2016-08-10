@@ -7,6 +7,7 @@ import com.zlt.gllys.model.UserCreateForm;
 import com.zlt.gllys.util.ResultUtil.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/restapi")
-public class UserInfoController extends BaseController{
-
+public class UserInfoController extends BaseController implements ErrorController {
+    private static final String ERROR_PATH = "/error";
     @Autowired
     private UserServiceImpl userService;
 
@@ -38,21 +39,20 @@ public class UserInfoController extends BaseController{
     }
 
 
-
     @RequestMapping("/login")
     public String login(Model model) {
         model.addAttribute("name", "platform-tail");
         return "login";
     }
 
-    @RequestMapping(value = "/user",method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
     public HttpEntity user(HttpServletRequest request,
-                               Model model,@RequestBody Object params)throws Exception{
+                           Model model, @RequestBody Object params) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        if(params==null){
-            map.put("code","403");
-            map.put("message","参数不完整");
+        if (params == null) {
+            map.put("code", "403");
+            map.put("message", "参数不完整");
             return new ResponseEntity<Object>(map, HttpStatus.FORBIDDEN);
 
         }
@@ -63,9 +63,15 @@ public class UserInfoController extends BaseController{
         userCreateForm.setRole(Role.USER);
 
         Result<Boolean> result = userService.create(userCreateForm);
-        map.put("code",200);
-        map.put("message",result.getMessage());
-        return new ResponseEntity<Object>(map,HttpStatus.OK);
+        map.put("code", 200);
+        map.put("message", result.getMessage());
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
+    }
+
+    @Override
+    public String getErrorPath() {
+        // TODO Auto-generated method stub
+        return ERROR_PATH;
     }
 
 }

@@ -26,7 +26,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 //            registry.addViewController("/").setViewName("index");
 //              registry.addViewController("/index").setViewName("login");
     }
-
+//    @Bean
+//    public ServletRegistrationBean dispatcherRegistration(DispatcherServlet dispatcherServlet) {
+//        ServletRegistrationBean registration = new ServletRegistrationBean(
+//                dispatcherServlet);
+//        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
+//        return registration;
+//    }
 
 
 }

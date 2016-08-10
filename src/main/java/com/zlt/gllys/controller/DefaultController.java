@@ -9,10 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
+@RequestMapping("/")
 public class DefaultController extends BaseController{
-    @RequestMapping("/")
+    @RequestMapping("")
     public String defaultController(Model model)throws Exception{
         model.addAttribute("name","tail-platform");
         return  "redirect:/tail/index";
+    }
+
+    @RequestMapping("/500")
+    public String showServerError() {
+        return "500";
     }
 }

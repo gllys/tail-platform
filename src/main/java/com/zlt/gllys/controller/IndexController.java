@@ -9,18 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/tail")
-public class IndexController {
+public class IndexController extends BaseController {
 
     @RequestMapping("/login")
-    public String login() {
+    public String login() throws Exception {
         return "login";
     }
+
     @RequestMapping("/index")
-    public String index() {
+    public String index() throws Exception {
         return "index";
     }
+
     @RequestMapping("/registration")
-    public String registration() {
+    public String registration() throws Exception {
         return "registration";
     }
 }

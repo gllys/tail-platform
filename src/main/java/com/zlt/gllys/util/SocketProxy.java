@@ -1,7 +1,6 @@
 package com.zlt.gllys.util;
 
 import com.zlt.gllys.impl.ProxyTaskImpl;
-import org.springframework.stereotype.Service;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,12 +12,12 @@ import java.util.concurrent.Executors;
 /**
  * Created by zhangletian on 16/8/1.
  */
-@Service
+
 public class SocketProxy {
 
     static final int listenPort=8002;
 
-    public static void main(String[] args) throws Exception {
+    public void  startProxy() throws Exception {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         ServerSocket serverSocket = new ServerSocket(listenPort);
         final ExecutorService tpe= Executors.newCachedThreadPool();

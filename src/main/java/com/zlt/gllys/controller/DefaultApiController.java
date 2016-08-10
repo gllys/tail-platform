@@ -54,6 +54,7 @@ public class DefaultApiController extends BaseController {
         }
         map.put("result", userInfo);
         logger.info(userInfo);
+        logger.info("number:one");
         return map;
     }
 
