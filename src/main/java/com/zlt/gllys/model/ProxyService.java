@@ -11,20 +11,24 @@ import java.util.List;
  * Created by zhangletian on 16/8/1.
  */
 @Component
-public class ProxyService{
+public class ProxyService {
 
     private List<String> header = new ArrayList<String>();
+
 
     private String method;
     private String host;
     private String port;
 
-    public static final int MAXLINESIZE = 4096;
+
+
+    public static final int MAXLINESIZE = 409600;
 
     public static final String METHOD_GET = "GET";
     public static final String METHOD_POST = "POST";
     public static final String METHOD_CONNECT = "CONNECT";
-private ProxyService() {
+
+    private ProxyService() {
     }
 
     /**
@@ -66,6 +70,7 @@ private ProxyService() {
 
         return header;
     }
+
 
     /**
      * @param str
@@ -114,8 +119,9 @@ private ProxyService() {
         return sb.toString();
     }
 
+
     public boolean notTooLong() {
-        return header.size() <= 16;
+        return header.size() <= 160;
     }
 
 
@@ -155,5 +161,6 @@ private ProxyService() {
     public void setPort(String port) {
         this.port = port;
     }
+
 
 }
