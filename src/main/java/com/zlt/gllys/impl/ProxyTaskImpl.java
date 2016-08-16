@@ -46,14 +46,13 @@ public class ProxyTaskImpl implements Runnable {
         try {
             builder.append("\r\n").append("Request Time  ：" + sdf.format(new Date()));
 
+
             InputStream isIn = socketIn.getInputStream();
             OutputStream osIn = socketIn.getOutputStream();
             //从客户端流数据中读取头部，获得请求主机和端口
             ProxyService header = ProxyService.readHeader(isIn);
 
 
-
-            System.out.println("===================");
             //添加请求日志信息
             builder.append("\r\n").append("From    Host  ：" + socketIn.getInetAddress());
             builder.append("\r\n").append("From    Port  ：" + socketIn.getPort());
@@ -61,12 +60,6 @@ public class ProxyTaskImpl implements Runnable {
             builder.append("\r\n").append("Request Host  ：" + header.getHost());
             builder.append("\r\n").append("Request Port  ：" + header.getPort());
             builder.append("\r\n").append("Request Header：" + header.getHeader());
-
-
-
-
-
-
 
 
             //如果没解析出请求请求地址和端口，则返回错误信息
@@ -80,30 +73,30 @@ public class ProxyTaskImpl implements Runnable {
 //                return;
 //            }
 
-                //查找主机和端口
-                socketOut = new Socket(header.getHost(), Integer.parseInt(header.getPort()));
-                socketOut.setKeepAlive(true);
-                InputStream isOut = socketOut.getInputStream();
-                OutputStream osOut = socketOut.getOutputStream();
-                //新开一个线程将返回的数据转发给客户端,串行会出问题，尚没搞明白原因
-                Thread ot = new DataSendThread(isOut, osIn);
+            //查找主机和端口
+            socketOut = new Socket(header.getHost(), Integer.parseInt(header.getPort()));
+            socketOut.setKeepAlive(true);
+            InputStream isOut = socketOut.getInputStream();
+            OutputStream osOut = socketOut.getOutputStream();
+            //新开一个线程将返回的数据转发给客户端,串行会出问题，尚没搞明白原因
+            Thread ot = new DataSendThread(isOut, osIn);
 
-                ot.start();
-                if (header.getMethod().equals(ProxyService.METHOD_CONNECT)) {
-                    // 将已联通信号返回给请求页面
-                    osIn.write(AUTHORED.getBytes());
-                    osIn.flush();
-                } else {
-                    //http请求需要将请求头部也转发出去
-                    byte[] headerData = header.toString().getBytes();
-                    totalUpload += headerData.length;
-                    osOut.write(headerData);
-                    osOut.flush();
-                }
-                //读取客户端请求过来的数据转发给服务器
-                readForwardDate(isIn, osOut);
-                //等待向客户端转发的线程结束
-                ot.join();
+            ot.start();
+            if (header.getMethod().equals(ProxyService.METHOD_CONNECT)) {
+                // 将已联通信号返回给请求页面
+                osIn.write(AUTHORED.getBytes());
+                osIn.flush();
+            } else {
+                //http请求需要将请求头部也转发出去
+                byte[] headerData = header.toString().getBytes();
+                totalUpload += headerData.length;
+                osOut.write(headerData);
+                osOut.flush();
+            }
+            //读取客户端请求过来的数据转发给服务器
+            readForwardDate(isIn, osOut);
+            //等待向客户端转发的线程结束
+            ot.join();
 
 
         } catch (Exception e) {
@@ -153,14 +146,15 @@ public class ProxyTaskImpl implements Runnable {
      * @param osOut
      */
     private void readForwardDate(InputStream isIn, OutputStream osOut) {
-        byte[] buffer = new byte[409600];
+
         try {
-            int len;
-            while ((len = isIn.read(buffer)) != -1) {
-                if (len > 0) {
-                    osOut.write(buffer, 0, len);
-                    osOut.flush();
-                }
+            int len = 0;
+            while (len == 0)     {
+                len = isIn.available();
+                byte[] buffer = new byte[len];
+                osOut.write(buffer, 0, len);
+                osOut.flush();
+
                 totalUpload += len;
 
                 if (socketIn.isClosed() || socketOut.isClosed()) {
@@ -189,7 +183,9 @@ public class ProxyTaskImpl implements Runnable {
             this.isOut = isOut;
             this.osIn = osIn;
         }
+
         byte[] buffer = new byte[409600];
+
         @Override
         public void run() {
 

@@ -12,6 +12,7 @@ com/zlt/gllys/controller/IndexController.class
 com/zlt/gllys/controller/DefaultController.class
 com/zlt/gllys/controller/DefaultApiController.class
 com/zlt/gllys/controller/UserInfoController.class
+com/zlt/gllys/util/SocketHandler.class
 com/zlt/gllys/mapper/UserInfoMapper.class
 com/zlt/gllys/conf/ErrorPageConfig$MyCustomizer.class
 com/zlt/gllys/model/UserInfo.class

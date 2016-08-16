@@ -32,7 +32,7 @@ public class SocketProxy {
             Socket socket = null;
             try {
                 socket = serverSocket.accept();
-                socket.setKeepAlive(true);
+                //socket.setKeepAlive(true);
                 //加入任务列表，等待处理
                 tpe.execute(new ProxyTaskImpl(socket));
             } catch (Exception e) {

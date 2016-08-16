@@ -13,6 +13,7 @@
 /Users/zhangletian/Documents/files_by_letain/tail-platform/src/main/java/com/zlt/gllys/impl/UserInfoServiceImpl.java
 /Users/zhangletian/Documents/files_by_letain/tail-platform/src/main/java/com/zlt/gllys/util/LoginSuccessHandler.java
 /Users/zhangletian/Documents/files_by_letain/tail-platform/src/main/java/com/zlt/gllys/controller/UserInfoController.java
+/Users/zhangletian/Documents/files_by_letain/tail-platform/src/main/java/com/zlt/gllys/util/SocketHandler.java
 /Users/zhangletian/Documents/files_by_letain/tail-platform/src/main/java/com/zlt/gllys/conf/WebMvcConfig.java
 /Users/zhangletian/Documents/files_by_letain/tail-platform/src/main/java/com/zlt/gllys/util/DefaultErrorHandle.java
 /Users/zhangletian/Documents/files_by_letain/tail-platform/src/main/java/com/zlt/gllys/service/CurrentUserService.java

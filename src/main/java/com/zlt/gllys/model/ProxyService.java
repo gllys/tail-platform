@@ -21,7 +21,6 @@ public class ProxyService {
     private String port;
 
 
-
     public static final int MAXLINESIZE = 409600;
 
     public static final String METHOD_GET = "GET";
@@ -42,13 +41,30 @@ public class ProxyService {
         ProxyService header = new ProxyService();
         StringBuilder sb = new StringBuilder();
         //先读出交互协议来，
-        char c = 0;
-        while ((c = (char) in.read()) != '\n') {
+        int len = 0;
+        while(len == 0){
+        len = in.available();}
+        byte[] buffer = new byte[len];
+        while (in.read(buffer) != '\r') {
             sb.append(c);
+
             if (sb.length() == MAXLINESIZE) {//不接受过长的头部字段
                 break;
             }
+
         }
+
+//        try {
+//            int len = 0;
+//            while(len == 0){
+//                len = in.available();
+//                byte[] buffer = new byte[len];
+//                System.out.println(new String(buffer));
+//            }
+//
+//        } catch (Exception e) {
+//        }
+
 
         //如能识别出请求方式则则继续，不能则退出
         if (header.addHeaderMethod(sb.toString()) != null) {
