@@ -19,6 +19,8 @@ public class ProxyService {
     private String method;
     private String host;
     private String port;
+    private String requestin;
+    private String body;
 
 
     public static final int MAXLINESIZE = 409600;
@@ -40,34 +42,27 @@ public class ProxyService {
     public static final ProxyService readHeader(InputStream in) throws IOException {
         ProxyService header = new ProxyService();
         StringBuilder sb = new StringBuilder();
-        //先读出交互协议来，
+        char c = 0;
+        //先读出交互协议来
         int len = 0;
-        while(len == 0){
-        len = in.available();}
-        byte[] buffer = new byte[len];
-        while (in.read(buffer) != '\r') {
-            sb.append(c);
-
-            if (sb.length() == MAXLINESIZE) {//不接受过长的头部字段
-                break;
-            }
+        while (len == 0) {
+            len = in.available();
 
         }
+        byte[] buffer = new byte[len];
+        int length = in.read(buffer);
+        for (int i = 0; i < length; i++) {
+            sb.append((char) buffer[i]);
+        }
 
-//        try {
-//            int len = 0;
-//            while(len == 0){
-//                len = in.available();
-//                byte[] buffer = new byte[len];
-//                System.out.println(new String(buffer));
-//            }
-//
-//        } catch (Exception e) {
-//        }
 
+        System.out.print(sb);
+        header.setRequestIn(sb.toString());
 
         //如能识别出请求方式则则继续，不能则退出
-        if (header.addHeaderMethod(sb.toString()) != null) {
+        if (header.addHeaderMethod(sb.toString()) != null)
+
+        {
             do {
                 sb = new StringBuilder();
                 while ((c = (char) in.read()) != '\n') {
@@ -105,6 +100,11 @@ public class ProxyService {
         }
     }
 
+    private void addBodyString(String str) {
+        String[] bodys = str.split("\r\n\r\n");
+        body = bodys[1].trim();
+    }
+
     /**
      * 判定请求方式
      *
@@ -137,7 +137,7 @@ public class ProxyService {
 
 
     public boolean notTooLong() {
-        return header.size() <= 160;
+        return header.size() <= 1600;
     }
 
 
@@ -176,6 +176,23 @@ public class ProxyService {
 
     public void setPort(String port) {
         this.port = port;
+    }
+
+
+    public String getRequestIn() {
+        return requestin;
+    }
+
+    public void setRequestIn(String requestin) {
+        this.requestin = requestin;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
 

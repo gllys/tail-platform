@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zlt.gllys</groupId>
-    <artifactId>tail#platform</artifactId>
+    <artifactId>tailplatform</artifactId>
     <version>${maven.build.timestamp}</version>
 
     <packaging>war</packaging>
@@ -20,7 +20,7 @@
     </parent>
 
     <properties>
-        <warPackageName>tail#platform</warPackageName>
+        <warPackageName>tailplatform</warPackageName>
 
 
 

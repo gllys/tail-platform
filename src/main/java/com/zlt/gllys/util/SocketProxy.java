@@ -16,6 +16,7 @@ import java.util.concurrent.Executors;
  */
 
 public class SocketProxy {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(SocketProxy.class);
 
     static final int listenPort=8002;
