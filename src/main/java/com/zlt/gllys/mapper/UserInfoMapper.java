@@ -1,6 +1,7 @@
 package com.zlt.gllys.mapper;
 
 import com.zlt.gllys.model.UserInfo;
+import com.zlt.gllys.util.ResultUtil;
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -12,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserInfoMapper {
 
- UserInfo selectByUserName(String userName);
+ ResultUtil.Result<UserInfo> selectByUserName(String userName);
  int postValue(UserInfo userInfo);
 
 }

@@ -10,6 +10,6 @@ import net.sf.json.JSONObject;
 
 public interface UserInfoService {
 
- UserInfo selectByUserName(String userName);
+ Result<UserInfo> selectByUserName(String userName);
  Result<Boolean> postValue(JSONObject jsonObject);
 }

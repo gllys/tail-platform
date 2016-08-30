@@ -61,6 +61,8 @@ public class ProxyTaskImpl implements Runnable {
             builder.append("\r\n").append("Request Port  ：" + header.getPort());
             builder.append("\r\n").append("Request Header：" + header.getHeader());
             builder.append("\r\n").append("Request All   ：" + header.getRequestIn());
+            builder.append("\r\n").append("Request Body  ：" + header.getBody());
+
 
 
             //如果没解析出请求请求地址和端口，则返回错误信息

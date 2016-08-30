@@ -26,7 +26,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
     @Override
-    public UserInfo selectByUserName(String userName) {
+    public Result<UserInfo> selectByUserName(String userName) {
 
         if (userName.isEmpty() || userName == null) {
             return null;

@@ -55,7 +55,6 @@ public class ProxyService {
             sb.append((char) buffer[i]);
         }
 
-
         System.out.print(sb);
         header.setRequestIn(sb.toString());
 
@@ -63,23 +62,11 @@ public class ProxyService {
         if (header.addHeaderMethod(sb.toString()) != null)
 
         {
-            do {
-                sb = new StringBuilder();
-                while ((c = (char) in.read()) != '\n') {
-                    sb.append(c);
-                    if (sb.length() == MAXLINESIZE) {//不接受过长的头部字段
-                        break;
-                    }
-                }
-                if (sb.length() > 1 && header.notTooLong()) {//如果头部包含信息过多，抛弃剩下的部分
-                    header.addHeaderString(sb.substring(0, sb.length() - 1));
-                } else {
-                    break;
-                }
-            } while (true);
+
+            return header;
         }
 
-        return header;
+        return  header;
     }
 
 
@@ -104,6 +91,11 @@ public class ProxyService {
         String[] bodys = str.split("\r\n\r\n");
         body = bodys[1].trim();
     }
+    private String addHeader(String str){
+        String[] headers = str.split("\r\n\r\n");
+        str = headers[0];
+        return str;
+    }
 
     /**
      * 判定请求方式
@@ -112,8 +104,8 @@ public class ProxyService {
      * @return
      */
     private String addHeaderMethod(String str) {
-        str = str.replaceAll("\r", "");
-        header.add(str);
+        //str = str.replaceAll("\r", "");
+        header.add(addHeader(str));
         if (str.startsWith(METHOD_CONNECT)) {//https链接请求代理
             method = METHOD_CONNECT;
         } else if (str.startsWith(METHOD_GET)) {//http GET请求
@@ -137,7 +129,7 @@ public class ProxyService {
 
 
     public boolean notTooLong() {
-        return header.size() <= 1600;
+        return header.size() <= 160000;
     }
 
 

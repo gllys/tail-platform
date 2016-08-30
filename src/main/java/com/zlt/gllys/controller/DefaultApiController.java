@@ -36,7 +36,7 @@ public class DefaultApiController extends BaseController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> tryFirst(HttpServletRequest request,
+    public HttpEntity tryFirst(HttpServletRequest request,
                                         Model model,@RequestBody Object params) throws Exception{
         String username = "username";
         Map<String, Object> map = new HashMap<>();
@@ -44,18 +44,18 @@ public class DefaultApiController extends BaseController {
         if(jsonObject.isEmpty()||jsonObject.getString(username)==null){
             map.put("code",503);
             map.put("message","却少参数:username");
-            return map;
+            return new ResponseEntity<Object>(map, HttpStatus.FORBIDDEN);
         }
-        UserInfo userInfo = userInfoService.selectByUserName(jsonObject.getString(username));
-        if(userInfo==null){
+        Result<UserInfo> result = userInfoService.selectByUserName(jsonObject.getString(username));
+        if(result==null){
             map.put("code",503);
-            map.put("result",userInfo);
-            return map;
+            map.put("result",result);
+            return new ResponseEntity<Object>(map, HttpStatus.FORBIDDEN);
         }
-        map.put("result", userInfo);
-        logger.info(userInfo);
+        map.put("result", result);
+        logger.info(result);
         logger.info("number:one");
-        return map;
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/postValue", method = RequestMethod.POST)
